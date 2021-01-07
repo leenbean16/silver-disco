@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <script src='https://code.jquery.com/jquery-3.1.1.min.js'></script>
+    <script src="https://kit.fontawesome.com/6df1fc8e21.js" crossorigin="anonymous"></script>
+    <script src="https://www.gstatic.com/firebasejs/live/3.0/firebase.js"></script>
+    <script src="https://cdn.jsdelivr.net/momentjs/2.12.0/moment.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="train.css">
+    <link href="https://fonts.googleapis.com/css2?family=Contrail+One&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
+<!--     <script defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-DqVoSTOtrqHASY2EUuT1e-We6hW1n0I&callback=initMap">
+    </script> -->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyB-DqVoSTOtrqHASY2EUuT1e-We6hW1n0I&callback=initMap&libraries=places&v=weekly" defer></script>
+    <title>Volume - Hair and Makeup</title>
+</head>
+
+<body>
+    <div id="navbar">
+        <div class="navbaritems">
+            <a class='navlink logo'>Volume</a>
+            <a style="display:none;" class='navlink'>Home</a>
+            <a style="display:none;" class='navlink'>Account</a>
+            <a class='navlink'>Find Clients</a>
+            <a class='navlink'>Find Stylist</a>
+            <button class="btn navlink" id="signInButton" type="submit">Sign In</button>
+            <button class="btn btn-primary navlink" id="signUpButton" type="submit">Sign up</button>
+        </div>
+    </div>
+    <!-- search bar -->
+    <div class="search-bar-div" style="background: #FFDDD2;">
+        <div id="pac-container" class="search input-group mb-3">
+            <input id="pac-input" type="text" class="form-control" placeholder="Location" aria-label="Recipient's username" aria-describedby="button-addon2">
+            <div class="input-group-append">
+                <button style="border-radius: 0px 10px 10px 0; background: #eae3e3;" class="btn btn-outline-secondary" type="button" id="button-addon2">Find!</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- sign up -->
+
+
+    <div class="text-center" id="signUpPopUp">
+        <br>
+        <form style="display:none;" class="form-signup form-horizontal">
+
+            <button type="button" style="float: right;" class="x-btn btn">x</button>
+            <h1 id="signupformtitle" class="h3 mb-3 font-weight-normal">Sign Up for Volume!</h1>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Username" id="user">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Email" id="email">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="Password" id="password">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <input type="text" class="form-control" placeholder="password2" id="password2">
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-sm-10">
+                    <select id="type" class="form-control form-control-lg">
+                        <option>Stylist</option>
+                        <option>Client</option>
+                    </select>
+                </div>
+            </div>
+            <div class="checkbox mb-3">
+                <label>
+                    <input type="checkbox" value="remember-me"> Remember me
+                </label>
+            </div>
+            <button class="btn btn-lg btn-primary btn-block" id="submitButton" type="submit">Sign up</button>
+            <p class="mt-5 mb-3 text-muted">&copy; 2020</p>
+        </form>
+    </div>
+    <div class="container block-container">
+        <div class="row block-row">
+            <div class="col-sm-4">
+                <div class="card for-who-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Volume can help stylists find clients to bring to their chairs.</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card for-who-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Volume is also great for independent stylists!</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="card for-who-card">
+                    <div class="card-body">
+                        <h5 class="card-title">Another thing its great for... bringing stylists to your home to style you in comfort!</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- column section -->
+    <div class="container">
+        <div class="row home-columns">
+            <div class="col-sm-4">
+                <h4 style="line-height: 2.4;">Filters</h4>
+                <div class="price-filter btn-group" role="group" aria-label="Basic example">
+                    <button type="button" class="price btn btn-secondary">$</button>
+                    <button type="button" class="price btn btn-secondary">$$</button>
+                    <button type="button" class="price btn btn-secondary">$$$</button>
+                </div>
+                <br>
+                <h4 style="line-height: 2.4;">Distance</h4>
+                <ul style="list-style: none;" class="price-filter btn-group" role="group">
+                    <li><input type="checkbox"> 5 miles</input></li>
+                    <li><input type="checkbox"> 10 miles</input></li>
+                    <li><input type="checkbox"> 15 miles+</input></li>
+                </ul>
+            </div>
+            <div class="col-sm feed-col" style="width: 70%;">
+                <h2>Best stylists in your area</h2>
+                <ul class="list-group feed">
+                    <li class="list-group-item">
+                        <p>Beauty by Linda</p><a class="follow-link">Follow+</a><img class="feed-pic" src="hair.png" />
+                    </li>
+                    <li class="list-group-item">
+                        <p>Skin by Paula</p><a class="follow-link">Follow+</a><img class="feed-pic" src="hair.png" />
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm">
+                <div style="width: 400px;" class="container">
+                </div>
+                <div style="height: 700px;" id="map"></div>
+            </div>
+        </div>
+    </div>
+    </div>
+    <div style="padding: 10px; background: black;" class="row footer">Footer</div>
+    <br>
+    <div style="display:none;" id="profile">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-offset-2 col-md-8 col-lg-offset-3 col-lg-6">
+                    <div class="well profile">
+                        <div class="col-sm-12">
+                            <div class="col-xs-12 col-sm-8">
+                                <h2 id="profilename">Lina Shamoon</h2>
+                                <p><strong>About: </strong> Hair Stylist/Makeup Artist </p>
+                                <p><strong>Hobbies: </strong> Hair and Makeup. </p>
+                                <p><strong>Skills: </strong>
+                                    <span class="tags">Cut</span>
+                                    <span class="tags">Color</span>
+                                    <span class="tags">Blowdry</span>
+                                    <span class="tags">Makeup</span>
+                                </p>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 text-center">
+                                <figure>
+                                    <img src="">
+                                    <figcaption class="ratings">
+                                        <p>Ratings
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star"></span>
+                                            </a>
+                                            <a href="#">
+                                                <span class="fa fa-star-o"></span>
+                                            </a>
+                                        </p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 divider text-center">
+                            <div class="col-xs-12 col-sm-4 emphasis">
+                                <h2><strong> 20,7K </strong></h2>
+                                <p><small>Followers</small></p>
+                                <button class="btn btn-success btn-block"><span class="fa fa-plus-circle"></span> Follow </button>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 emphasis">
+                                <h2><strong>245</strong></h2>
+                                <p><small>Following</small></p>
+                                <button class="btn btn-info btn-block"><span class="fa fa-user"></span> View Profile </button>
+                            </div>
+                            <div class="col-xs-12 col-sm-4 emphasis">
+                                <h2><strong>43</strong></h2>
+                                <p><small>Snippets</small></p>
+                                <div class="btn-group dropup btn-block">
+                                    <button type="button" class="btn btn-primary"><span class="fa fa-gear"></span> Options </button>
+                                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                                        <span class="caret"></span>
+                                        <span class="sr-only">Toggle Dropdown</span>
+                                    </button>
+                                    <ul class="dropdown-menu text-left" role="menu">
+                                        <li><a href="#"><span class="fa fa-envelope pull-right"></span> Send an email </a></li>
+                                        <li><a href="#"><span class="fa fa-list pull-right"></span> Add or remove from a list </a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#"><span class="fa fa-warning pull-right"></span>Report this user for spam</a></li>
+                                        <li class="divider"></li>
+                                        <li><a href="#" class="btn disabled" role="button"> Unfollow </a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--  -->
+        <!--  -->
+        <!-- end form -->
+        <script type="text/javascript" src="train.js"></script>
+</body>
+
+</html>

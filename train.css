@@ -1,0 +1,304 @@
+/*/*nav*/
+body {
+    background: #EDF6F9;
+}
+
+.navlink {
+    padding: 19px;
+    line-height: 1;
+    color: #000000;
+    float: right;
+}
+
+.logo {
+    font-family: 'Contrail One', cursive;
+    color: #83C5BE;
+    font-size: 45px;
+    float: left;
+    line-height: 0.5;
+}
+
+.well {
+    background-color: #eae3e3;
+}
+
+/*blocks*/
+
+.block-container {
+    background: transparent;
+    width: 100%;
+    padding: 20px;
+}
+
+/*login form*/
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+body {
+    min-height: 75rem;
+}
+
+.form-signup {
+    width: 25%;
+    padding: 13px;
+    display: inline-block;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    box-shadow: 4px 4px 0px red;
+}
+
+.form-signup {
+    position: absolute;
+    z-index: 100000;
+    display: inline-block;
+    margin-left: -160px;
+}
+
+.form-control {
+    display: block;
+    width: 121%;
+}
+
+#signupformtitle {
+    font-family: 'Contrail One', cursive;
+    font-size: 37px;
+    color: red;
+    text-shadow: 2px 2px black;
+}
+
+#submitButton {
+    font-family: 'Contrail One', cursive;
+    box-shadow: 2px 2px black;
+}
+
+#profilename {
+    font-family: 'Contrail One', cursive;
+}
+
+.btn-primary {
+    color: #fff;
+    background-color: red;
+    border-color: red;
+}
+
+
+.bd-placeholder-img {
+    font-size: 1.125rem;
+    text-anchor: middle;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+@media (min-width: 768px) {
+    .bd-placeholder-img-lg {
+        font-size: 3.5rem;
+    }
+}
+
+#navbar {
+    background: #006D77;
+    height: 55px;
+}
+
+h1,
+h2,
+h3 {
+    font-family: 'Contrail One', cursive;
+}
+
+/*////////////////////////*/
+
+
+/*profile*/
+.profile {
+    min-height: 355px;
+    display: inline-block;
+}
+
+figcaption.ratings {
+    margin-top: 20px;
+}
+
+figcaption.ratings a {
+    color: #f1c40f;
+    font-size: 11px;
+}
+
+figcaption.ratings a:hover {
+    color: #f39c12;
+    text-decoration: none;
+}
+
+.divider {
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.emphasis {
+    border-top: 4px solid transparent;
+}
+
+.emphasis:hover {
+    border-top: 4px solid #1abc9c;
+}
+
+.emphasis h2 {
+    margin-bottom: 0;
+}
+
+span.tags {
+    background: #1abc9c;
+    border-radius: 2px;
+    color: #f5f5f5;
+    font-weight: bold;
+    padding: 2px 4px;
+}
+
+.dropdown-menu {
+    background-color: #34495e;
+    box-shadow: none;
+    -webkit-box-shadow: none;
+    width: 250px;
+    margin-left: -125px;
+    left: 50%;
+}
+
+.dropdown-menu .divider {
+    background: none;
+}
+
+.dropdown-menu>li>a {
+    color: #f5f5f5;
+}
+
+.dropup .dropdown-menu {
+    margin-bottom: 10px;
+}
+
+.dropup .dropdown-menu:before {
+    content: "";
+    border-top: 10px solid #34495e;
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    bottom: -10px;
+    left: 50%;
+    margin-left: -10px;
+    z-index: 10;
+}
+
+#signUpButton {
+    margin-bottom: 0px;
+    margin-top: 10px;
+    height: 8px;
+    line-height: 0.1;
+    margin-right: 5px;
+    background: #E29578;
+}
+
+#signInButton {
+    margin-bottom: 0px;
+    margin-top: 10px;
+    height: 8px;
+    line-height: 0.1;
+}
+
+.btn-primary {
+    color: #fff;
+    border-color: #E29578;
+}
+
+.search {
+    position: relative;
+    display: inline-flex;
+    border-collapse: collapse;
+    margin: 10px 0 0 50px;
+    width: 1000px;
+}
+
+.search-bar-div {
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eae3e3;
+}
+
+.home-columns {
+    padding-top: 10px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#map {
+    height: 100vh;
+    position: fixed;
+}
+
+.btn:focus,
+.btn:active {
+    box-shadow: none !important;
+    outline: 0px !important;
+}
+
+.feed-pic {
+    width: 500px;
+}
+
+.feed {
+    overflow: scroll;
+}
+
+.footer {
+    clear: both;
+}
+
+/*autocomplete*/
+
+#description {
+    font-family: Roboto;
+    font-size: 15px;
+    font-weight: 300;
+}
+
+#infowindow-content .title {
+    font-weight: bold;
+}
+
+#infowindow-content {
+    display: none;
+}
+
+#map #infowindow-content {
+    display: inline;
+}
+
+.pac-card {
+    margin: 10px 10px 0 0;
+    border-radius: 2px 0 0 2px;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    outline: none;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    font-family: Roboto;
+}
+
+.for-who-card {
+    border: 1px solid #FEDDD2;
+    padding: 10px;
+    border-radius: 10px;
+    height: 65px;
+    text-align: center;
+}
