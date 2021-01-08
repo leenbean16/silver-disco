@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    // initMap();
+    $(".red-text").hide();
 });
 
 var config = {
@@ -26,28 +26,36 @@ function read() {
 }
 
 $("#submitButton").on("click", function(event) {
-    event.preventDefault();
-    var user = $("#user").val().trim().toLowerCase();
-    var email = $("#email").val().trim();
-    var password = $("#password").val();
-    var password2 = $("#password2").val().trim();
-    var type = $("#type").val().trim();
-    var exists = true;
-    $("#user").val("")
-    $("#email").val("")
-    $("#password").val("")
-    $("#password2").val("")
-    $("#type").val("");
+    validate();
+    if (validated === true) {
+        event.preventDefault();
+        var user = $("#user").val().trim().toLowerCase();
+        var email = $("#email").val().trim();
+        var password = $("#password").val();
+        var password2 = $("#password2").val().trim();
+        var zipcode = $("#zipcode").val().trim();
+        var type = $("#type").val().trim();
+        var exists = true;
+        $("#user").val("")
+        $("#email").val("")
+        $("#password").val("")
+        $("#password2").val("")
+        $("#type").val("");
+        $("#zipcode").val("");
 
-    var user = {
-        user: user,
-        email: email,
-        password: password,
-        password2: password2,
-        type: type
+        var user = {
+            user: user,
+            email: email,
+            password: password,
+            password2: password2,
+            type: type,
+            zipcode: zipcode
+        }
+
+        train.push().set(user);
+    } else if (validated === false) {
+        console.log("Form needs to be fixed.");
     }
-
-    train.push().set(user);
 });
 
 train.on("child_added", function(snapshot) {
@@ -55,9 +63,10 @@ train.on("child_added", function(snapshot) {
     var email = snapshot.val().email;
     var password = snapshot.val().password;
     var password2 = snapshot.val().password2;
+    var zipcode = snapshot.val().zipcode;
     var type = snapshot.val().type;
     trainCount++;
-    console.log("FROM DB :", snapshot.val().user, email, password, password2, type);
+    console.log("FROM DB :", snapshot.val().user, email, password, password2, zipcode, type);
 
 });
 
@@ -112,11 +121,12 @@ function initMap() {
 
 $("#signUpButton").click(function() {
     event.preventDefault();
+    $("#signUpPopUp").show();
     $(".form-signup").css("display", "inline-block");
 });
 
-$(".x-btn").click(function() {
-    $(".form-signup").hide();
+$(".btn-close").click(function() {
+    $("#signUpPopUp").hide();
 });
 
 $(".price").click(function() {
@@ -125,3 +135,50 @@ $(".price").click(function() {
     $(this).addClass("active");
     $(this).addClass("btn-primary");
 })
+
+var validated = false;
+var validatedCount = 0;
+
+$(".form-control").click(function() {
+    $('.form-control').removeClass("red");
+})
+
+function validate() {
+    $(".red-text").hide();
+    var user = $("#user").val().trim().toLowerCase();
+    var email = $("#email").val().trim();
+    var password = $("#password").val();
+    var password2 = $("#password2").val().trim();
+    var zipcode = $("#zipcode").val().trim();
+    var type = $("#type").val().trim();
+    if (user.length <= 4) {
+        console.log("username not long enough");
+        validated = false;
+        $(".user-text").show();
+        validatedCount++;
+    } else if (/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/.test(email) === false) {
+        console.log("email wrong");
+        validated = false;
+        $(".email-text").show();
+        validatedCount++;
+    } else if (/^(?=.*[0-9])(?=.*[!@#$%^&*])[a-zA-Z0-9!@#$%^&*]{8,16}$/.test(password) === false) {
+        console.log("password ", password);
+        validated = false;
+        $(".password-text").show();
+        validatedCount++;
+    } else if (password != password2) {
+        console.log("passwords don't match!");
+        $(".password2-text").show();
+        validated = false;
+        validatedCount++;
+    } else if (/(^\d{5}$)|(^\d{5}-\d{4}$)/.test(zipcode) === false) {
+        console.log("zip code wrong!");
+        validated = false;
+        $(".zipcode-text").show();
+        validatedCount++;
+    } else {
+        $('.form-control').removeClass("red");
+        console.log("all good.");
+        validated = true;
+    }
+}
