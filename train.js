@@ -120,9 +120,9 @@ function initMap() {
 }
 
 $("#signUpButton").click(function() {
-    event.preventDefault();
+    // event.preventDefault();
     $("#signUpPopUp").show();
-    $(".form-signup").css("display", "inline-block");
+    // $(".form-signup").css("display", "inline-block");
 });
 
 $(".btn-close").click(function() {
