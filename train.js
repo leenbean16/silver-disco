@@ -12,64 +12,6 @@ var config = {
 };
 firebase.initializeApp(config);
 
-// var trainData = firebase.database();
-
-var database = firebase.database();
-var train = database.ref("/train");
-var trainCount = 0;
-
-
-function read() {
-    let query = firebase.database().ref("/train").orderByKey();
-    let val = query.once("value");
-    console.log("query : " + query.val);
-}
-
-$("#submitButton").on("click", function(event) {
-    validate();
-    if (validated === true) {
-        event.preventDefault();
-        var user = $("#user").val().trim().toLowerCase();
-        var email = $("#email").val().trim();
-        var password = $("#password").val();
-        var password2 = $("#password2").val().trim();
-        var zipcode = $("#zipcode").val().trim();
-        var type = $("#type").val().trim();
-        var exists = true;
-        $("#user").val("")
-        $("#email").val("")
-        $("#password").val("")
-        $("#password2").val("")
-        $("#type").val("");
-        $("#zipcode").val("");
-
-        var user = {
-            user: user,
-            email: email,
-            password: password,
-            password2: password2,
-            type: type,
-            zipcode: zipcode
-        }
-
-        train.push().set(user);
-    } else if (validated === false) {
-        console.log("Form needs to be fixed.");
-    }
-});
-
-train.on("child_added", function(snapshot) {
-    var user = snapshot.val().user;
-    var email = snapshot.val().email;
-    var password = snapshot.val().password;
-    var password2 = snapshot.val().password2;
-    var zipcode = snapshot.val().zipcode;
-    var type = snapshot.val().type;
-    trainCount++;
-    console.log("FROM DB :", snapshot.val().user, email, password, password2, zipcode, type);
-
-});
-
 function initMap() {
     const map = new google.maps.Map(document.getElementById("map"), {
         center: { lat: -33.8688, lng: 151.2195 },
@@ -119,6 +61,91 @@ function initMap() {
     });
 }
 
+var database = firebase.database();
+var train = database.ref("/train");
+
+function read() {
+    let query = firebase.database().ref("/train").orderByKey();
+    let val = query.once("value");
+    console.log("query : " + query.val);
+}
+
+var dbArray = [];
+var dbObject = {};
+
+train.on("child_added", function(snapshot) {
+    var user = snapshot.val().user;
+    var email = snapshot.val().email;
+    var password = snapshot.val().password;
+    var password2 = snapshot.val().password2;
+    var zipcode = snapshot.val().zipcode;
+    var type = snapshot.val().type;
+    var dbObject = new Object()
+    dbObject.user = snapshot.val().user;
+    dbObject.email = email;
+    dbObject.password = password;
+    dbObject.password2 = password2;
+    dbObject.zipcode = zipcode;
+    dbObject.type = type;
+    dbArray.push(dbObject);
+    console.log("dbArray : ", dbArray);
+});
+
+// sign up button sutmit
+$("#submitButton").on("click", function(event) {
+    validate();
+    if (validated === true) {
+        event.preventDefault();
+        var user = $("#user").val().trim().toLowerCase();
+        var email = $("#email").val().trim();
+        var password = $("#password").val();
+        var password2 = $("#password2").val().trim();
+        var zipcode = $("#zipcode").val().trim();
+        var type = $("#type").val().trim();
+        var exists = true;
+        $("#user").val("")
+        $("#email").val("")
+        $("#password").val("")
+        $("#password2").val("")
+        $("#type").val("");
+        $("#zipcode").val("");
+
+        var user = {
+            user: user,
+            email: email,
+            password: password,
+            password2: password2,
+            type: type,
+            zipcode: zipcode
+        }
+        train.push().set(user);
+    } else if (validated === false) {
+        console.log("Form needs to be fixed.");
+    }
+});
+
+$(".signInModalBtn").click(function(event) {
+    event.preventDefault();
+    let loginEmail = $("#loginEmail").val().trim();
+    let loginPassword = $("#loginPassword").val().trim();
+    for (var i = 0; i < dbArray.length; i++) {
+        if (loginEmail != dbArray[i].email && loginPassword != dbArray[i].password) {
+            console.log("Something went wrong.");
+            $(".login-error-text").show();
+        } else if (loginEmail === dbArray[i].email && loginPassword === dbArray[i].password) {
+            if (document.getElementById("rememberMe").checked === true) {
+                localStorage.setItem("loginEmail", loginEmail);
+                localStorage.setItem("loginPassword", loginPassword);
+            } else {
+                console.log("Not remembering log in info...");
+            }
+            console.log("||| SIGNED IN WITH EMAIL : ", loginEmail, " AND PASSWORD : ", loginPassword);
+            $(".login-error-text").hide();
+            break;
+        }
+    }
+});
+
 $("#signUpButton").click(function() {
     // event.preventDefault();
     $("#signUpPopUp").show();
@@ -127,6 +154,7 @@ $("#signUpButton").click(function() {
 
 $(".btn-close").click(function() {
     $("#signUpPopUp").hide();
+    $("#signInPopUp").hide();
 });
 
 $(".price").click(function() {
@@ -134,6 +162,15 @@ $(".price").click(function() {
     $(".price").removeClass("btn-primary");
     $(this).addClass("active");
     $(this).addClass("btn-primary");
+})
+
+$("#signInButton").click(function() {
+    $("#signInPopUp").show();
+    $(".login-error-text").hide();
+    if (localStorage.getItem("loginEmail") != undefined && localStorage.getItem("loginPassword") != undefined) {
+        $("#loginEmail").val(localStorage.getItem("loginEmail"));
+        $("#loginPassword").val(localStorage.getItem("loginPassword"));
+    }
 })
 
 var validated = false;

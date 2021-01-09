@@ -50,22 +50,6 @@ body {
     min-height: 75rem;
 }
 
-.form-signup {
-/*    width: 25%;
-    padding: 13px;
-    display: inline-block;
-    background-color: whitesmoke;
-    border-radius: 10px;
-    box-shadow: 4px 4px 0px red;*/
-}
-/*
-.form-signup {
-    position: absolute;
-    z-index: 100000;
-    display: inline-block;
-    margin-left: -160px;
-}*/
-
 .form-control {
     display: block;
 /*    width: 121%;*/
